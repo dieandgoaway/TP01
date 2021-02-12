@@ -3,8 +3,11 @@
  */
 
 import java.util.Scanner;
+import java.text.DecimalFormat;
 
 public class ProcessamentoTemperatura {	
+	
+	private static DecimalFormat df2 = new DecimalFormat("#.##");
 	/* Declaração de Array tridimensional de valores double para armazenar as temperaturas em cada uma das datas
 	 * com a terceira dimensão em aberto para ser ajustada de acordo com a quantidade de dias do referido mês
 	 */
@@ -16,10 +19,10 @@ public class ProcessamentoTemperatura {
 	// Função para validar se a data inserida está dentro do intervalo permitido
 	public static boolean validaData(int mesValida, int anoValida) {
 		if(mesValida<1 || mesValida>12) {
-			System.out.println("Data Inválida\n");
+			System.out.println("Data inválida\n");
 			return(false);
 			}else if(anoValida<2011 || anoValida>2020) {
-			System.out.println("Data Inválida\n");
+			System.out.println("Data inválida\n");
 			return(false);
 			}
 		return(true);
@@ -47,28 +50,28 @@ public class ProcessamentoTemperatura {
 		// Escolhe a opção de menu inserida e informa com um print a decisão para o usuário
 		switch (menu) {
 		case 1:
-			System.out.println("Opção 1. Entrada das temperaturas Selecionada\n");
+			System.out.println("Opção 1. \"Entrada das temperaturas\" selecionada\n");
 			ProcessamentoTemperatura.entradaTemperatura(mes, ano);
 			break;
 		
 		case 2:
-			System.out.println("Opção 2. Cálculo da temperatura média Selecionada\n");
+			System.out.println("Opção 2. \"Cálculo da temperatura média\" selecionada\n");
 			ProcessamentoTemperatura.mediaTemperatura(mes, ano);
 			break;
 		case 3:
-			System.out.println("Opção 3. Cálculo da temperatura mínima Selecionada\n");
+			System.out.println("Opção 3. \"Cálculo da temperatura mínima\" selecionada\n");
 			ProcessamentoTemperatura.minimaTemperatura(mes, ano);
 			break;
 		case 4:
-			System.out.println("Opção 4. Cálculo da temperatura máxima Selecionada\n");
+			System.out.println("Opção 4. \"Cálculo da temperatura máxima\" selecionada\n");
 			ProcessamentoTemperatura.maximaTemperatura(mes, ano);
 			break;
 		case 5:
-			System.out.println("Opção 5. Relatório meteorológico Selecionada\n");
+			System.out.println("Opção 5. \"Relatório meteorológico\" selecionada\n");
 			ProcessamentoTemperatura.relatorioTemperatura(mes, ano);
 			break;
 		default:
-			System.out.println("Opção Inválida, entre com um número de 1 a 5.");
+			System.out.println("Opção inválida, entre com um número de 1 a 5.");
 			break;
 		}
 		return;
@@ -128,7 +131,7 @@ public class ProcessamentoTemperatura {
 			media += data[mesMedia-1][anoMedia-2011][j];
 		}
 		media /= data[mesMedia-1][anoMedia-2011].length;
-		System.out.println("A média de temperaturas do mês " + String.format("%02d", mesMedia) + "/" + anoMedia + " é :" + media + "\n");
+		System.out.println("A média de temperaturas do mês " + String.format("%02d", mesMedia) + "/" + anoMedia + " é :" + df2.format(media) + "\n");
 		return;
 		
 	}
@@ -145,7 +148,7 @@ public class ProcessamentoTemperatura {
 				}
 		}
 		
-		System.out.println("A Temperatúra media mínima registrada em "+ mesMinima + "/" + anoMinima + " foi de: " + temperaturaMinima + "\n");
+		System.out.println("A menor temperatura média registrada em "+ mesMinima + "/" + anoMinima + " foi de: " + temperaturaMinima + "\n");
 		return;
 		
 	}
@@ -160,23 +163,23 @@ public class ProcessamentoTemperatura {
 				temperaturaMaxima = data[mesMaxima-1][anoMaxima-2011][l];
 				}
 		}
-		System.out.println("A Temperatúra media máxima registrada em "+ mesMaxima + "/" + anoMaxima + " foi de: " + temperaturaMaxima + "\n");
+		System.out.println("A maior temperatura média registrada em "+ mesMaxima + "/" + anoMaxima + " foi de: " + temperaturaMaxima + "\n");
 		return;
 	}
 	//Método para emitir um relatório com todas as temperaturas, media, mínima e máxima de determinado mes
 	public static void relatorioTemperatura(int mesRelatorio, int anoRelatorio) {
 		
 		
-		System.out.println("Início do Relatório de temperaturas para o mês "+ String.format("%02d", mesRelatorio) + "/" + anoRelatorio + "\n");
+		System.out.println("Início do relatório de temperaturas para o mês "+ String.format("%02d", mesRelatorio) + "/" + anoRelatorio + "\n");
 		
 		for(int m = 0; m<(data[mesRelatorio-1][anoRelatorio-2011].length);m++ ) {
-			System.out.println("Temperatura média em " + String.format("%02d", m+1) + "/" + String.format("%02d", mesRelatorio) + "/" + anoRelatorio + " foi de " + data[mesRelatorio-1][anoRelatorio-2011][m]);
+			System.out.println("Temperatura média em " + String.format("%02d", m+1) + "/" + String.format("%02d", mesRelatorio) + "/" + anoRelatorio + " foi de " + df2.format(data[mesRelatorio-1][anoRelatorio-2011][m]));
 		}
 		System.out.println("\n");
 		ProcessamentoTemperatura.mediaTemperatura(mesRelatorio, anoRelatorio);
 		ProcessamentoTemperatura.minimaTemperatura(mesRelatorio, anoRelatorio);
 		ProcessamentoTemperatura.maximaTemperatura(mesRelatorio, anoRelatorio);
-		System.out.println("Fim do Relatório de temperaturas para o mês "+ String.format("%02d", mesRelatorio) + "/" + anoRelatorio + "\n");
+		System.out.println("Fim do relatório de temperaturas para o mês "+ String.format("%02d", mesRelatorio) + "/" + anoRelatorio + "\n");
 		
 		
 		return;
