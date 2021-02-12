@@ -11,9 +11,9 @@ public class ProcessamentoTemperatura {
 	public static double[][][] data = new double[12][10][];
 	// Scanner público para que não seja necessário criar outros para cada método
 	public static Scanner ler = new Scanner(System.in);
-	// Flag para registrar o armazenamento de temperaturas (Valor padrão = falso)
+	// Flag para registrar o armazenamento de temperaturas (Valor padrão = falso), caso tal mes de tal ano for armazenado = true
 	public static boolean[][] armazenado = new boolean[12][10];
-	// Como é necessário validar todas as datas inseridas em todas as funções é melhor fazer um método dedicado do que copiar o código varias vezes
+	// Função para validar se a data inserida está dentro do intervalo permitido
 	public static boolean validaData(int mesValida, int anoValida) {
 		if(mesValida<1 || mesValida>12) {
 			System.out.println("Data Inválida\n");
@@ -24,7 +24,7 @@ public class ProcessamentoTemperatura {
 			}
 		return(true);
 	}
-	
+	// Metodo de entrada de data para os demais métodos com verificação de data válida e de data armazenada
 	public static void entradaData(int menu) {
 		
 		int mes;
@@ -74,7 +74,6 @@ public class ProcessamentoTemperatura {
 		return;
 		
 	}
-	
 	//Método entradaTemperatura que registra as temperaturas na devida variável de mes e ano correspondente
 	public static void entradaTemperatura(int mesEntrada, int anoEntrada){
 		/*Declaração da quantidade de dias para cada array de data corretamente ajustados para anos bissextos
@@ -121,7 +120,7 @@ public class ProcessamentoTemperatura {
 		System.out.println("Dados do mês "+ String.format("%02d", mesEntrada) + "/" + anoEntrada + " cadastrados com sucesso!\n");
 		return;	
 	}
-	
+	//Método para calcular a temperatura média do mes
 	public static void mediaTemperatura(int mesMedia, int anoMedia) {
 		double media = 0;
 		
@@ -133,7 +132,7 @@ public class ProcessamentoTemperatura {
 		return;
 		
 	}
-	
+	//Método para calcular a temperatura mínima do mes
 	public static void minimaTemperatura(int mesMinima, int anoMinima) {
 		
 		double temperaturaMinima = 500;
@@ -150,7 +149,7 @@ public class ProcessamentoTemperatura {
 		return;
 		
 	}
-	
+	//Método para calcular a temperatura máxima do mes
 	public static void maximaTemperatura(int mesMaxima, int anoMaxima) {
 		
 		double temperaturaMaxima = 0;
@@ -164,7 +163,7 @@ public class ProcessamentoTemperatura {
 		System.out.println("A Temperatúra media máxima registrada em "+ mesMaxima + "/" + anoMaxima + " foi de: " + temperaturaMaxima + "\n");
 		return;
 	}
-	
+	//Método para emitir um relatório com todas as temperaturas, media, mínima e máxima de determinado mes
 	public static void relatorioTemperatura(int mesRelatorio, int anoRelatorio) {
 		
 		
@@ -182,7 +181,7 @@ public class ProcessamentoTemperatura {
 		
 		return;
 	}
-	
+	//Método principal main
 	public static void main(String[] args) {
 		//Dados reais de janeiro de 2020 extraidos de https://www.accuweather.com/pt/br/bras%C3%ADlia/43348/january-weather/43348?year=2020
 		data[0][9] = new double[31]; 
@@ -194,6 +193,7 @@ public class ProcessamentoTemperatura {
 		data[0][9][25] = 23.5; data[0][9][26] = 24.5; data[0][9][27] = 23.5; data[0][9][28] = 25.0; data[0][9][29] = 26.0; 
 		data[0][9][30] = 26.0;
 		armazenado[0][9] = true;
+		
 		int opcaoMenu;
 		
 		while(true) {
