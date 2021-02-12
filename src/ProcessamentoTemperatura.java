@@ -66,6 +66,7 @@ public class ProcessamentoTemperatura {
 		mesEntrada = ler.nextInt();
 		System.out.println("Digite o ano de referência (2011 a 2020):");
 		anoEntrada = ler.nextInt();
+		ler.close();
 		// Testa se a data é válida
 		if(!ProcessamentoTemperatura.validaData(mesEntrada, anoEntrada)) {
 			return;
@@ -91,6 +92,7 @@ public class ProcessamentoTemperatura {
 		mesMedia = ler.nextInt();
 		System.out.println("Digite o ano de referência (2011 a 2020):");
 		anoMedia = ler.nextInt();
+		ler.close();
 		// Testa se a data é válida
 		if(!ProcessamentoTemperatura.validaData(mesMedia, anoMedia)) {
 			return;
@@ -118,6 +120,7 @@ public class ProcessamentoTemperatura {
 		mesMinima = ler.nextInt();
 		System.out.println("Digite o ano de referência (2011 a 2020):");
 		anoMinima = ler.nextInt();
+		ler.close();
 		// Testa se a data é válida
 		if(!ProcessamentoTemperatura.validaData(mesMinima, anoMinima)) {
 			return;
@@ -129,6 +132,7 @@ public class ProcessamentoTemperatura {
 				temperaturaMinima = data[mesMinima-1][anoMinima-2011][k];
 				}
 		}
+		
 		System.out.println("A Temperatúra media mínima registrada em "+ mesMinima + "/" + anoMinima + " foi de: " + temperaturaMinima + "\n");
 		return;
 		
@@ -144,6 +148,7 @@ public class ProcessamentoTemperatura {
 		mesMaxima = ler.nextInt();
 		System.out.println("Digite o ano de referência (2011 a 2020):");
 		anoMaxima = ler.nextInt();
+		ler.close();
 		// Testa se a data é válida
 		if(!ProcessamentoTemperatura.validaData(mesMaxima, anoMaxima)) {
 			return;
@@ -165,7 +170,6 @@ public class ProcessamentoTemperatura {
 	
 	public static void main(String[] args) {
 		
-		
 		int opcaoMenu;
 				
 		Scanner ler = new Scanner(System.in);
@@ -177,9 +181,9 @@ public class ProcessamentoTemperatura {
 		System.out.println("4. Cálculo da temperatura máxima");
 		System.out.println("5. Relatório meteorológico \n");
 		System.out.println("Digite o número(1 a 5) correspondente à opção desejada");
-		
-		
 		opcaoMenu = ler.nextInt();
+		ler.close();
+		
 		switch (opcaoMenu) {
 		case 1:
 			System.out.println("Opção 1. Entrada das temperaturas Selecionada\n");
