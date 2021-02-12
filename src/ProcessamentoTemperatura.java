@@ -107,7 +107,7 @@ public class ProcessamentoTemperatura {
 		 data[0][8] = new double[31]; data[1][8] = new double[28]; data[2][8] = new double[31]; data[3][8] = new double[30]; 
 		 data[4][8] = new double[31]; data[5][8] = new double[30]; data[6][8] = new double[31]; data[7][8] = new double[31]; 
 		 data[8][8] = new double[30]; data[9][8] = new double[31]; data[10][8] = new double[30]; data[11][8] = new double[31];
-		 data[0][9] = new double[31]; data[1][9] = new double[29]; data[2][9] = new double[31]; data[3][9] = new double[30]; 
+		 /*data[0][9] = new double[31]*/; data[1][9] = new double[29]; data[2][9] = new double[31]; data[3][9] = new double[30]; 
 		 data[4][9] = new double[31]; data[5][9] = new double[30]; data[6][9] = new double[31]; data[7][9] = new double[31]; 
 		 data[8][9] = new double[30]; data[9][9] = new double[31]; data[10][9] = new double[30]; data[11][9] = new double[31];
 		
@@ -168,7 +168,7 @@ public class ProcessamentoTemperatura {
 	public static void relatorioTemperatura(int mesRelatorio, int anoRelatorio) {
 		
 		
-		System.out.println("Relatório de temperaturas para o mês "+ String.format("%02d", mesRelatorio) + "/" + anoRelatorio + "\n");
+		System.out.println("Início do Relatório de temperaturas para o mês "+ String.format("%02d", mesRelatorio) + "/" + anoRelatorio + "\n");
 		
 		for(int m = 0; m<(data[mesRelatorio-1][anoRelatorio-2011].length);m++ ) {
 			System.out.println("Temperatura média em " + String.format("%02d", m+1) + "/" + String.format("%02d", mesRelatorio) + "/" + anoRelatorio + " foi de " + data[mesRelatorio-1][anoRelatorio-2011][m]);
@@ -177,14 +177,25 @@ public class ProcessamentoTemperatura {
 		ProcessamentoTemperatura.mediaTemperatura(mesRelatorio, anoRelatorio);
 		ProcessamentoTemperatura.minimaTemperatura(mesRelatorio, anoRelatorio);
 		ProcessamentoTemperatura.maximaTemperatura(mesRelatorio, anoRelatorio);
+		System.out.println("Fim do Relatório de temperaturas para o mês "+ String.format("%02d", mesRelatorio) + "/" + anoRelatorio + "\n");
+		
 		
 		return;
 	}
 	
 	public static void main(String[] args) {
-		
+		//Dados reais de janeiro de 2020 extraidos de https://www.accuweather.com/pt/br/bras%C3%ADlia/43348/january-weather/43348?year=2020
+		data[0][9] = new double[31]; 
+		data[0][9][0]  = 23.5; data[0][9][1]  = 24.5; data[0][9][2]  = 24.5; data[0][9][3]  = 23.0; data[0][9][4]  = 21.0;
+		data[0][9][5]  = 23.0; data[0][9][6]  = 25.0; data[0][9][7]  = 24.5; data[0][9][8]  = 23.5; data[0][9][9]  = 25.0; 
+		data[0][9][10] = 25.5; data[0][9][11] = 25.5; data[0][9][12] = 26.5; data[0][9][13] = 27.5; data[0][9][14] = 26.5; 
+		data[0][9][15] = 26.5; data[0][9][16] = 26.0; data[0][9][17] = 24.0; data[0][9][18] = 26.0; data[0][9][19] = 26.0; 
+		data[0][9][20] = 25.0; data[0][9][21] = 23.0; data[0][9][22] = 23.5; data[0][9][23] = 23.0; data[0][9][24] = 22.5; 
+		data[0][9][25] = 23.5; data[0][9][26] = 24.5; data[0][9][27] = 23.5; data[0][9][28] = 25.0; data[0][9][29] = 26.0; 
+		data[0][9][30] = 26.0;
+		armazenado[0][9] = true;
 		int opcaoMenu;
-			
+		
 		while(true) {
 				
 			System.out.println("1. Entrada das temperaturas");
