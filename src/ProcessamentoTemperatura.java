@@ -1,47 +1,42 @@
 import java.util.Scanner;
 import java.lang.reflect.Field;
-public class ProcessamentoTemperatura {
-
-	
-	/* Declaração das variáveis relativas a cada um dos meses dentro do intervalo de interesse
-	   public para que seja acessada por todos os métodos
-	 */
-	public double[] jan2011 = new double[31], fev2011 = new double[28], mar2011 = new double[31], abr2011 = new double[30],
-			 mai2011 = new double[31], jun2011 = new double[30], jul2011 = new double[31], ago2011 = new double[31], 
-			 set2011 = new double[30], out2011 = new double[31], nov2011 = new double[30], dez2011 = new double[31], 
-			 jan2012 = new double[31], fev2012 = new double[29], mar2012 = new double[31], abr2012 = new double[30], 
-			 mai2012 = new double[31], jun2012 = new double[30], jul2012 = new double[31], ago2012 = new double[31], 
-			 set2012 = new double[30], out2012 = new double[31], nov2012 = new double[30], dez2012 = new double[31],
-			 jan2013 = new double[31], fev2013 = new double[28], mar2013 = new double[31], abr2013 = new double[30], 
-			 mai2013 = new double[31], jun2013 = new double[30], jul2013 = new double[31], ago2013 = new double[31], 
-			 set2013 = new double[30], out2013 = new double[31], nov2013 = new double[30], dez2013 = new double[31],
-			 jan2014 = new double[31], fev2014 = new double[28], mar2014 = new double[31], abr2014 = new double[30], 
-			 mai2014 = new double[31], jun2014 = new double[30], jul2014 = new double[31], ago2014 = new double[31], 
-			 set2014 = new double[30], out2014 = new double[31], nov2014 = new double[30], dez2014 = new double[31],
-			 jan2015 = new double[31], fev2015 = new double[28], mar2015 = new double[31], abr2015 = new double[30], 
-			 mai2015 = new double[31], jun2015 = new double[30], jul2015 = new double[31], ago2015 = new double[31], 
-			 set2015 = new double[30], out2015 = new double[31], nov2015 = new double[30], dez2015 = new double[31],
-			 jan2016 = new double[31], fev2016 = new double[29], mar2016 = new double[31], abr2016 = new double[30], 
-			 mai2016 = new double[31], jun2016 = new double[30], jul2016 = new double[31], ago2016 = new double[31], 
-			 set2016 = new double[30], out2016 = new double[31], nov2016 = new double[30], dez2016 = new double[31],
-			 jan2017 = new double[31], fev2017 = new double[28], mar2017 = new double[31], abr2017 = new double[30], 
-			 mai2017 = new double[31], jun2017 = new double[30], jul2017 = new double[31], ago2017 = new double[31], 
-			 set2017 = new double[30], out2017 = new double[31], nov2017 = new double[30], dez2017 = new double[31],
-			 jan2018 = new double[31], fev2018 = new double[28], mar2018 = new double[31], abr2018 = new double[30], 
-			 mai2018 = new double[31], jun2018 = new double[30], jul2018 = new double[31], ago2018 = new double[31], 
-			 set2018 = new double[30], out2018 = new double[31], nov2018 = new double[30], dez2018 = new double[31],
-			 jan2019 = new double[31], fev2019 = new double[28], mar2019 = new double[31], abr2019 = new double[30], 
-			 mai2019 = new double[31], jun2019 = new double[30], jul2019 = new double[31], ago2019 = new double[31], 
-			 set2019 = new double[30], out2019 = new double[31], nov2019 = new double[30], dez2019 = new double[31],
-			 jan2020 = new double[31], fev2020 = new double[29], mar2020 = new double[31], abr2020 = new double[30], 
-			 mai2020 = new double[31], jun2020 = new double[30], jul2020 = new double[31], ago2020 = new double[31], 
-			 set2020 = new double[30], out2020 = new double[31], nov2020 = new double[30], dez2020 = new double[31];
+public class ProcessamentoTemperatura {	
+	public static double[][][] data = new double[12][10][];
 	public static void entradaTemperatura(){
-		String[] prefixo = {"jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"};
+		//Declaração da quantidade de dias para cada array de data
+		data[0][0] = new double[31]; data[1][0] = new double[28]; data[2][0] = new double[31]; data[3][0] = new double[30];
+		 data[4][0] = new double[31]; data[5][0] = new double[30]; data[6][0] = new double[31]; data[7][0] = new double[31]; 
+		 data[8][0] = new double[30]; data[9][0] = new double[31]; data[10][0] = new double[30]; data[11][0] = new double[31]; 
+		 data[0][1] = new double[31]; data[1][1] = new double[29]; data[2][1] = new double[31]; data[3][1] = new double[30]; 
+		 data[4][1] = new double[31]; data[5][1] = new double[30]; data[6][1] = new double[31]; data[7][1] = new double[31]; 
+		 data[8][1] = new double[30]; data[9][1] = new double[31]; data[10][1] = new double[30]; data[11][1] = new double[31];
+		 data[0][2] = new double[31]; data[1][2] = new double[28]; data[2][2] = new double[31]; data[3][2] = new double[30]; 
+		 data[4][2] = new double[31]; data[5][2] = new double[30]; data[6][2] = new double[31]; data[7][2] = new double[31]; 
+		 data[8][2] = new double[30]; data[9][2] = new double[31]; data[10][2] = new double[30]; data[11][2] = new double[31];
+		 data[0][3] = new double[31]; data[1][3] = new double[28]; data[2][3] = new double[31]; data[3][3] = new double[30]; 
+		 data[4][3] = new double[31]; data[5][3] = new double[30]; data[6][3] = new double[31]; data[7][3] = new double[31]; 
+		 data[8][3] = new double[30]; data[9][3] = new double[31]; data[10][3] = new double[30]; data[11][3] = new double[31];
+		 data[0][4] = new double[31]; data[1][4] = new double[28]; data[2][4] = new double[31]; data[3][4] = new double[30]; 
+		 data[4][4] = new double[31]; data[5][4] = new double[30]; data[6][4] = new double[31]; data[7][4] = new double[31]; 
+		 data[8][4] = new double[30]; data[9][4] = new double[31]; data[10][4] = new double[30]; data[11][4] = new double[31];
+		 data[0][5] = new double[31]; data[1][5] = new double[29]; data[2][5] = new double[31]; data[3][5] = new double[30]; 
+		 data[4][5] = new double[31]; data[5][5] = new double[30]; data[6][5] = new double[31]; data[7][5] = new double[31]; 
+		 data[8][5] = new double[30]; data[9][5] = new double[31]; data[10][5] = new double[30]; data[11][5] = new double[31];
+		 data[0][6] = new double[31]; data[1][6] = new double[28]; data[2][6] = new double[31]; data[3][6] = new double[30]; 
+		 data[4][6] = new double[31]; data[5][6] = new double[30]; data[6][6] = new double[31]; data[7][6] = new double[31]; 
+		 data[8][6] = new double[30]; data[9][6] = new double[31]; data[10][6] = new double[30]; data[11][6] = new double[31];
+		 data[0][7] = new double[31]; data[1][7] = new double[28]; data[2][7] = new double[31]; data[3][7] = new double[30]; 
+		 data[4][7] = new double[31]; data[5][7] = new double[30]; data[6][7] = new double[31]; data[7][7] = new double[31]; 
+		 data[8][7] = new double[30]; data[9][7] = new double[31]; data[10][7] = new double[30]; data[11][7] = new double[31];
+		 data[0][8] = new double[31]; data[1][8] = new double[28]; data[2][8] = new double[31]; data[3][8] = new double[30]; 
+		 data[4][8] = new double[31]; data[5][8] = new double[30]; data[6][8] = new double[31]; data[7][8] = new double[31]; 
+		 data[8][8] = new double[30]; data[9][8] = new double[31]; data[10][8] = new double[30]; data[11][8] = new double[31];
+		 data[0][9] = new double[31]; data[1][9] = new double[29]; data[2][9] = new double[31]; data[3][9] = new double[30]; 
+		 data[4][9] = new double[31]; data[5][9] = new double[30]; data[6][9] = new double[31]; data[7][9] = new double[31]; 
+		 data[8][9] = new double[30]; data[9][9] = new double[31]; data[10][9] = new double[30]; data[11][9] = new double[31];
+		
 		int mesEntrada;
 		int anoEntrada;
-		String oi = "jan2013";
-		
 		Scanner ler = new Scanner(System.in);
 		System.out.println("Digite o mês que deseja cadastrar(1 a 12):");
 		mesEntrada = ler.nextInt();
@@ -56,13 +51,13 @@ public class ProcessamentoTemperatura {
 			return;
 		}
 		
-		ProcessamentoTemperatura s1 = new ProcessamentoTemperatura();
-        //Field[]  f1 = s1.getClass().getDeclaredFields();
-        Field f1 = s1.getClass().getField("jan2020");
+		for (int i = 0; i<(data[mesEntrada-1][anoEntrada-2011].length); i++){
+			System.out.println("Digite a média de temperatura do dia " + String.format("%02d", (i+1)) + "/" + String.format("%02d", mesEntrada) + "/" + anoEntrada);
+			data[mesEntrada-1][anoEntrada-2011][i] = ler.nextDouble();
+		}
         
-		
-		
-		
+		System.out.println("Dados do mês "+ String.format("%02d", mesEntrada) + "/" + anoEntrada + " cadastrados com sucesso!");
+		return;
 		
 		
 	}
@@ -81,7 +76,15 @@ public class ProcessamentoTemperatura {
 		System.out.println("5. Relatório meteorológico \n");
 		System.out.println("Digite o número(1 a 5) correspondente à opção desejada");
 		
+		
 		opcaoMenu = ler.nextInt();
+		switch (opcaoMenu) {
+		case 1:
+			ProcessamentoTemperatura.entradaTemperatura();
+			break;
+			
+		case 2: 
+		}
 		
 		
 		
