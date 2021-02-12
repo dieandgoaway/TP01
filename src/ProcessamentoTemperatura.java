@@ -15,7 +15,7 @@ public class ProcessamentoTemperatura {
 	public static boolean[][] armazenado = new boolean[12][10];
 	// Como é necessário validar todas as datas inseridas em todas as funções é melhor fazer um método dedicado do que copiar o código varias vezes
 	public static boolean validaData(int mesValida, int anoValida) {
-		if(mesValida<1 || mesValida>13) {
+		if(mesValida<1 || mesValida>12) {
 			System.out.println("Data Inválida\n");
 			return(false);
 			}else if(anoValida<2011 || anoValida>2020) {
@@ -26,6 +26,7 @@ public class ProcessamentoTemperatura {
 	}
 	
 	public static void entradaData(int menu) {
+		
 		int mes;
 		int ano;
 				
@@ -33,10 +34,17 @@ public class ProcessamentoTemperatura {
 		mes = ler.nextInt();
 		System.out.println("Digite o ano de referência(2011-2020): ");
 		ano = ler.nextInt();
+		//Chamada da função booleana validaData que testa se a data é valida, caso seja inválida retorna.
+		if(!ProcessamentoTemperatura.validaData(mes, ano)) {
+			return;
+		}
+		//Teste da variável booleana armazenado para saber se o valor de temperaturas para um dado mes foi ou não cadastrado
+		// "mes-1" e "ano-2011" se referem ao range dos arrays de mês [0-11] e ano [0-9]
 		if(!armazenado[mes-1][ano-2011] && menu != 1) {
 			System.out.println("A temperatura do mês " + String.format("%02d", mes) + "/" + ano + " ainda não foi cadastrada.\n");
 			return;
 		}
+		// Escolhe a opção de menu inserida e informa com um print a decisão para o usuário
 		switch (menu) {
 		case 1:
 			System.out.println("Opção 1. Entrada das temperaturas Selecionada\n");
@@ -158,6 +166,18 @@ public class ProcessamentoTemperatura {
 	}
 	
 	public static void relatorioTemperatura(int mesRelatorio, int anoRelatorio) {
+		
+		
+		System.out.println("Relatório de temperaturas para o mês "+ String.format("%02d", mesRelatorio) + "/" + anoRelatorio + "\n");
+		
+		for(int m = 0; m<(data[mesRelatorio-1][anoRelatorio-2011].length);m++ ) {
+			System.out.println("Temperatura média em " + String.format("%02d", m+1) + "/" + String.format("%02d", mesRelatorio) + "/" + anoRelatorio + " foi de " + data[mesRelatorio-1][anoRelatorio-2011][m]);
+		}
+		System.out.println("\n");
+		ProcessamentoTemperatura.mediaTemperatura(mesRelatorio, anoRelatorio);
+		ProcessamentoTemperatura.minimaTemperatura(mesRelatorio, anoRelatorio);
+		ProcessamentoTemperatura.maximaTemperatura(mesRelatorio, anoRelatorio);
+		
 		return;
 	}
 	
