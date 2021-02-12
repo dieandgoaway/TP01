@@ -11,6 +11,17 @@ public class ProcessamentoTemperatura {
 	public static double[][][] data = new double[12][10][];
 	// Flag para registrar o armazenamento de temperaturas (Valor padrão = falso)
 	public static boolean[][] armazenado = new boolean[12][10];
+	// Como é necessário validar todas as datas inseridas em todas as funções é melhor fazer um método dedicado do que copiar o código varias vezes
+	public static boolean validaData(int mesValida, int anoValida) {
+		if(mesValida<1 || mesValida>13) {
+			System.out.println("Data Inválida\n");
+			return(false);
+			}else if(anoValida<2011 || anoValida>2020) {
+			System.out.println("Data Inválida\n");
+			return(false);
+			}
+		return(true);
+	}
 	
 	//Método entradaTemperatura que registra as temperaturas na devida variável de mes e ano correspondente
 	public static void entradaTemperatura(){
@@ -55,14 +66,11 @@ public class ProcessamentoTemperatura {
 		mesEntrada = ler.nextInt();
 		System.out.println("Digite o ano de referência (2011 a 2020):");
 		anoEntrada = ler.nextInt();
-		
-		if(mesEntrada<1 || mesEntrada>13) {
-			System.out.println("Data Inválida");
-			return;
-			}else if(anoEntrada<2011 || anoEntrada>2020) {
-			System.out.println("Data Inválida");
+		// Testa se a data é válida
+		if(!ProcessamentoTemperatura.validaData(mesEntrada, anoEntrada)) {
 			return;
 		}
+		
 		//Loop para armazenar as temperaturas médias de cada dia do mês selecionado
 		for (int i = 0; i<(data[mesEntrada-1][anoEntrada-2011].length); i++){
 			System.out.println("Digite a média de temperatura do dia " + String.format("%02d", (i+1)) + "/" + String.format("%02d", mesEntrada) + "/" + anoEntrada);
@@ -83,14 +91,10 @@ public class ProcessamentoTemperatura {
 		mesMedia = ler.nextInt();
 		System.out.println("Digite o ano de referência (2011 a 2020):");
 		anoMedia = ler.nextInt();
-		
-		if(mesMedia<1 || mesMedia>13) {
-			System.out.println("Data Inválida\n");
+		// Testa se a data é válida
+		if(!ProcessamentoTemperatura.validaData(mesMedia, anoMedia)) {
 			return;
-			}else if(anoMedia<2011 || anoMedia>2020) {
-			System.out.println("Data Inválida\n");
-			return;
-			}
+		}
 		if(!armazenado[mesMedia-1][anoMedia-2011]) {
 			System.out.println("A temperatura do mês " + String.format("%02d", mesMedia) + "/" + anoMedia + " ainda não foi cadastrada.\n");
 			return;
@@ -103,6 +107,61 @@ public class ProcessamentoTemperatura {
 		return;
 		
 	}
+	
+	public static void minimaTemperatura() {
+		double temperaturaMinima = 500;
+		int mesMinima;
+		int anoMinima;
+		
+		Scanner ler = new Scanner(System.in);
+		System.out.println("Digite o mês do qual deseja a temperatura mínima (1 a 12):");
+		mesMinima = ler.nextInt();
+		System.out.println("Digite o ano de referência (2011 a 2020):");
+		anoMinima = ler.nextInt();
+		// Testa se a data é válida
+		if(!ProcessamentoTemperatura.validaData(mesMinima, anoMinima)) {
+			return;
+		}
+		//Lopp que vai iterar as temperaturas de todos os dias do mes selecionado
+		for(int k = 0; k<(data[mesMinima-1][anoMinima-2011].length);k++) {
+			//se for o primeiro loop (k = 0) OU se a variável temperaturaMinima for maior que a leitura atual, temperaturaMinima recebe a leitura atual
+			if (k == 0 || temperaturaMinima > data[mesMinima-1][anoMinima-2011][k]) {
+				temperaturaMinima = data[mesMinima-1][anoMinima-2011][k];
+				}
+		}
+		System.out.println("A Temperatúra media mínima registrada em "+ mesMinima + "/" + anoMinima + " foi de: " + temperaturaMinima + "\n");
+		return;
+		
+	}
+	
+	public static void maximaTemperatura() {
+		double temperaturaMaxima = 0;
+		int mesMaxima;
+		int anoMaxima;
+		
+		Scanner ler = new Scanner(System.in);
+		System.out.println("Digite o mês do qual deseja a temperatura máxima (1 a 12):");
+		mesMaxima = ler.nextInt();
+		System.out.println("Digite o ano de referência (2011 a 2020):");
+		anoMaxima = ler.nextInt();
+		// Testa se a data é válida
+		if(!ProcessamentoTemperatura.validaData(mesMaxima, anoMaxima)) {
+			return;
+		}
+		//Lopp que vai iterar as temperaturas de todos os dias do mes selecionado
+		for(int l = 0; l<(data[mesMaxima-1][anoMaxima-2011].length);l++) {
+			if (l == 0 || temperaturaMaxima < data[mesMaxima-1][anoMaxima-2011][l]) {
+				temperaturaMaxima = data[mesMaxima-1][anoMaxima-2011][l];
+				}
+		}
+		System.out.println("A Temperatúra media máxima registrada em "+ mesMaxima + "/" + anoMaxima + " foi de: " + temperaturaMaxima + "\n");
+		return;
+	}
+	
+	public static void relatorioTemperatura() {
+		return;
+	}
+	
 	
 	public static void main(String[] args) {
 		
@@ -132,7 +191,24 @@ public class ProcessamentoTemperatura {
 			System.out.println("Opção 2. Cálculo da temperatura média Selecionada\n");
 			ProcessamentoTemperatura.mediaTemperatura();
 			break;
+		case 3:
+			System.out.println("Opção 3. Cálculo da temperatura mínima Selecionada\n");
+			ProcessamentoTemperatura.minimaTemperatura();
+			break;
+		case 4:
+			System.out.println("Opção 4. Cálculo da temperatura máxima Selecionada\n");
+			ProcessamentoTemperatura.maximaTemperatura();
+			break;
+		case 5:
+			System.out.println("Opção 5. Relatório meteorológico Selecionada\n");
+			ProcessamentoTemperatura.relatorioTemperatura();
+			break;
+		default:
+			System.out.println("Entrada Inválida, entre com um número de 1 a 5.");
+			break;
 		}
+		
+		
 		}
 		
 		
