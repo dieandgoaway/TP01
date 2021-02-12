@@ -166,7 +166,6 @@ public class ProcessamentoTemperatura {
 	public static void main(String[] args) {
 		
 		
-		
 		int opcaoMenu;
 				
 		Scanner ler = new Scanner(System.in);
