@@ -9,6 +9,8 @@ public class ProcessamentoTemperatura {
 	 * com a terceira dimensão em aberto para ser ajustada de acordo com a quantidade de dias do referido mês
 	 */
 	public static double[][][] data = new double[12][10][];
+	// Scanner público para que não seja necessário criar outros para cada método
+	public static Scanner ler = new Scanner(System.in);
 	// Flag para registrar o armazenamento de temperaturas (Valor padrão = falso)
 	public static boolean[][] armazenado = new boolean[12][10];
 	// Como é necessário validar todas as datas inseridas em todas as funções é melhor fazer um método dedicado do que copiar o código varias vezes
@@ -23,8 +25,50 @@ public class ProcessamentoTemperatura {
 		return(true);
 	}
 	
+	public static void entradaData(int menu) {
+		int mes;
+		int ano;
+				
+		System.out.println("Digite o número correspondente ao mês(1 a 12): ");
+		mes = ler.nextInt();
+		System.out.println("Digite o ano de referência(2011-2020): ");
+		ano = ler.nextInt();
+		if(!armazenado[mes-1][ano-2011] && menu != 1) {
+			System.out.println("A temperatura do mês " + String.format("%02d", mes) + "/" + ano + " ainda não foi cadastrada.\n");
+			return;
+		}
+		switch (menu) {
+		case 1:
+			System.out.println("Opção 1. Entrada das temperaturas Selecionada\n");
+			ProcessamentoTemperatura.entradaTemperatura(mes, ano);
+			break;
+		
+		case 2:
+			System.out.println("Opção 2. Cálculo da temperatura média Selecionada\n");
+			ProcessamentoTemperatura.mediaTemperatura(mes, ano);
+			break;
+		case 3:
+			System.out.println("Opção 3. Cálculo da temperatura mínima Selecionada\n");
+			ProcessamentoTemperatura.minimaTemperatura(mes, ano);
+			break;
+		case 4:
+			System.out.println("Opção 4. Cálculo da temperatura máxima Selecionada\n");
+			ProcessamentoTemperatura.maximaTemperatura(mes, ano);
+			break;
+		case 5:
+			System.out.println("Opção 5. Relatório meteorológico Selecionada\n");
+			ProcessamentoTemperatura.relatorioTemperatura(mes, ano);
+			break;
+		default:
+			System.out.println("Opção Inválida, entre com um número de 1 a 5.");
+			break;
+		}
+		return;
+		
+	}
+	
 	//Método entradaTemperatura que registra as temperaturas na devida variável de mes e ano correspondente
-	public static void entradaTemperatura(){
+	public static void entradaTemperatura(int mesEntrada, int anoEntrada){
 		/*Declaração da quantidade de dias para cada array de data corretamente ajustados para anos bissextos
 		 * Com a primeira variável do array responsável pelo mês(0 a 11) e a segunda pelo ano(0 a 9)
 		 */
@@ -59,19 +103,6 @@ public class ProcessamentoTemperatura {
 		 data[4][9] = new double[31]; data[5][9] = new double[30]; data[6][9] = new double[31]; data[7][9] = new double[31]; 
 		 data[8][9] = new double[30]; data[9][9] = new double[31]; data[10][9] = new double[30]; data[11][9] = new double[31];
 		
-		int mesEntrada;
-		int anoEntrada;
-		Scanner ler = new Scanner(System.in);
-		System.out.println("Digite o mês que deseja cadastrar (1 a 12):");
-		mesEntrada = ler.nextInt();
-		System.out.println("Digite o ano de referência (2011 a 2020):");
-		anoEntrada = ler.nextInt();
-		ler.close();
-		// Testa se a data é válida
-		if(!ProcessamentoTemperatura.validaData(mesEntrada, anoEntrada)) {
-			return;
-		}
-		
 		//Loop para armazenar as temperaturas médias de cada dia do mês selecionado
 		for (int i = 0; i<(data[mesEntrada-1][anoEntrada-2011].length); i++){
 			System.out.println("Digite a média de temperatura do dia " + String.format("%02d", (i+1)) + "/" + String.format("%02d", mesEntrada) + "/" + anoEntrada);
@@ -83,24 +114,9 @@ public class ProcessamentoTemperatura {
 		return;	
 	}
 	
-	public static void mediaTemperatura() {
-		int mesMedia;
-		int anoMedia;
+	public static void mediaTemperatura(int mesMedia, int anoMedia) {
 		double media = 0;
-		Scanner ler = new Scanner(System.in);
-		System.out.println("Digite o mês do qual deseja a média (1 a 12):");
-		mesMedia = ler.nextInt();
-		System.out.println("Digite o ano de referência (2011 a 2020):");
-		anoMedia = ler.nextInt();
-		ler.close();
-		// Testa se a data é válida
-		if(!ProcessamentoTemperatura.validaData(mesMedia, anoMedia)) {
-			return;
-		}
-		if(!armazenado[mesMedia-1][anoMedia-2011]) {
-			System.out.println("A temperatura do mês " + String.format("%02d", mesMedia) + "/" + anoMedia + " ainda não foi cadastrada.\n");
-			return;
-		}
+		
 		for (int j = 0; j<(data[mesMedia-1][anoMedia-2011].length); j++){
 			media += data[mesMedia-1][anoMedia-2011][j];
 		}
@@ -110,21 +126,10 @@ public class ProcessamentoTemperatura {
 		
 	}
 	
-	public static void minimaTemperatura() {
-		double temperaturaMinima = 500;
-		int mesMinima;
-		int anoMinima;
+	public static void minimaTemperatura(int mesMinima, int anoMinima) {
 		
-		Scanner ler = new Scanner(System.in);
-		System.out.println("Digite o mês do qual deseja a temperatura mínima (1 a 12):");
-		mesMinima = ler.nextInt();
-		System.out.println("Digite o ano de referência (2011 a 2020):");
-		anoMinima = ler.nextInt();
-		ler.close();
-		// Testa se a data é válida
-		if(!ProcessamentoTemperatura.validaData(mesMinima, anoMinima)) {
-			return;
-		}
+		double temperaturaMinima = 500;
+		
 		//Lopp que vai iterar as temperaturas de todos os dias do mes selecionado
 		for(int k = 0; k<(data[mesMinima-1][anoMinima-2011].length);k++) {
 			//se for o primeiro loop (k = 0) OU se a variável temperaturaMinima for maior que a leitura atual, temperaturaMinima recebe a leitura atual
@@ -138,21 +143,10 @@ public class ProcessamentoTemperatura {
 		
 	}
 	
-	public static void maximaTemperatura() {
-		double temperaturaMaxima = 0;
-		int mesMaxima;
-		int anoMaxima;
+	public static void maximaTemperatura(int mesMaxima, int anoMaxima) {
 		
-		Scanner ler = new Scanner(System.in);
-		System.out.println("Digite o mês do qual deseja a temperatura máxima (1 a 12):");
-		mesMaxima = ler.nextInt();
-		System.out.println("Digite o ano de referência (2011 a 2020):");
-		anoMaxima = ler.nextInt();
-		ler.close();
-		// Testa se a data é válida
-		if(!ProcessamentoTemperatura.validaData(mesMaxima, anoMaxima)) {
-			return;
-		}
+		double temperaturaMaxima = 0;
+
 		//Lopp que vai iterar as temperaturas de todos os dias do mes selecionado
 		for(int l = 0; l<(data[mesMaxima-1][anoMaxima-2011].length);l++) {
 			if (l == 0 || temperaturaMaxima < data[mesMaxima-1][anoMaxima-2011][l]) {
@@ -163,61 +157,26 @@ public class ProcessamentoTemperatura {
 		return;
 	}
 	
-	public static void relatorioTemperatura() {
+	public static void relatorioTemperatura(int mesRelatorio, int anoRelatorio) {
 		return;
 	}
-	
 	
 	public static void main(String[] args) {
 		
 		int opcaoMenu;
-				
-		Scanner ler = new Scanner(System.in);
-		
-		while(true) {
-		System.out.println("1. Entrada das temperaturas");
-		System.out.println("2. Cálculo da temperatura média");
-		System.out.println("3. Cálculo da temperatura mínima");
-		System.out.println("4. Cálculo da temperatura máxima");
-		System.out.println("5. Relatório meteorológico \n");
-		System.out.println("Digite o número(1 a 5) correspondente à opção desejada");
-		opcaoMenu = ler.nextInt();
-		ler.close();
-		
-		switch (opcaoMenu) {
-		case 1:
-			System.out.println("Opção 1. Entrada das temperaturas Selecionada\n");
-			ProcessamentoTemperatura.entradaTemperatura();
-			break;
 			
-		case 2:
-			System.out.println("Opção 2. Cálculo da temperatura média Selecionada\n");
-			ProcessamentoTemperatura.mediaTemperatura();
-			break;
-		case 3:
-			System.out.println("Opção 3. Cálculo da temperatura mínima Selecionada\n");
-			ProcessamentoTemperatura.minimaTemperatura();
-			break;
-		case 4:
-			System.out.println("Opção 4. Cálculo da temperatura máxima Selecionada\n");
-			ProcessamentoTemperatura.maximaTemperatura();
-			break;
-		case 5:
-			System.out.println("Opção 5. Relatório meteorológico Selecionada\n");
-			ProcessamentoTemperatura.relatorioTemperatura();
-			break;
-		default:
-			System.out.println("Entrada Inválida, entre com um número de 1 a 5.");
-			break;
+		while(true) {
+				
+			System.out.println("1. Entrada das temperaturas");
+			System.out.println("2. Cálculo da temperatura média");
+			System.out.println("3. Cálculo da temperatura mínima");
+			System.out.println("4. Cálculo da temperatura máxima");
+			System.out.println("5. Relatório meteorológico \n");
+			System.out.println("Digite o número(1 a 5) correspondente à opção desejada");
+			opcaoMenu = ler.nextInt();
+			ProcessamentoTemperatura.entradaData(opcaoMenu);	
 		}
-		
-		
-		}
-		
-		
-		
 		// TODO Auto-generated method stub
-
 	}
 
 }
