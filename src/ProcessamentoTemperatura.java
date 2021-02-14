@@ -4,6 +4,7 @@
 
 import java.util.Scanner;
 import java.text.DecimalFormat;
+import java.util.Arrays;
 
 public class ProcessamentoTemperatura {	
 	
@@ -11,11 +12,14 @@ public class ProcessamentoTemperatura {
 	/* Declaração de Array tridimensional de valores double para armazenar as temperaturas em cada uma das datas
 	 * com a terceira dimensão em aberto para ser ajustada de acordo com a quantidade de dias do referido mês
 	 */
+	
+	
 	public static double[][][] data = new double[12][10][];
-	// Scanner público para que não seja necessário criar outros para cada método
-	public static Scanner ler = new Scanner(System.in);
 	// Flag para registrar o armazenamento de temperaturas (Valor padrão = falso), caso tal mes de tal ano for armazenado = true
 	public static boolean[][] armazenado = new boolean[12][10];
+	// Scanner público para que não seja necessário criar outros para cada método
+	public static Scanner ler = new Scanner(System.in);
+	
 	// Função para validar se a data inserida está dentro do intervalo permitido
 	public static boolean validaData(int mesValida, int anoValida) {
 		if(mesValida<1 || mesValida>12) {
@@ -138,17 +142,36 @@ public class ProcessamentoTemperatura {
 	//Método para calcular a temperatura mínima do mes
 	public static void minimaTemperatura(int mesMinima, int anoMinima) {
 		
-		double temperaturaMinima = 500;
+		double temperaturaMinima = 500; 
+		boolean[] armazenadoMinima = new boolean[data[mesMinima-1][anoMinima-2011].length];
 		
 		//Lopp que vai iterar as temperaturas de todos os dias do mes selecionado
 		for(int k = 0; k<(data[mesMinima-1][anoMinima-2011].length);k++) {
 			//se for o primeiro loop (k = 0) OU se a variável temperaturaMinima for maior que a leitura atual, temperaturaMinima recebe a leitura atual
-			if (k == 0 || temperaturaMinima > data[mesMinima-1][anoMinima-2011][k]) {
+			if (k == 0 || temperaturaMinima >= data[mesMinima-1][anoMinima-2011][k]) {
 				temperaturaMinima = data[mesMinima-1][anoMinima-2011][k];
-				}
+				Arrays.fill(armazenadoMinima, Boolean.FALSE);
+				armazenadoMinima[k] = true;
+				                                              
+			}	
+		}
+		// For para identificar duplicatas da temperatura mínima
+		for(int k = 0; k<(data[mesMinima-1][anoMinima-2011].length);k++) {
+			//se a temperatura for igual a mínima e se tratar de outro dia diferente do armazenado, armazenar esse também
+			if (temperaturaMinima == data[mesMinima-1][anoMinima-2011][k] && !armazenadoMinima[k]) {
+				armazenadoMinima[k] = true;
+			}	
 		}
 		
-		System.out.println("A menor temperatura média registrada em "+ mesMinima + "/" + anoMinima + " foi de: " + temperaturaMinima + "\n");
+		System.out.print("A menor temperatura média registrada em "+ mesMinima + "/" + anoMinima + " foi de: " + temperaturaMinima);
+		System.out.print(" no(s) dia(s): ");
+		for(int k = 0; k<(data[mesMinima-1][anoMinima-2011].length);k++) {
+			//se a temperatura for igual a mínima e se tratar de outro dia diferente do armazenado, armazenar esse também
+			if(armazenadoMinima[k] == true) {
+				System.out.print((k+1) + " ");
+			}	
+		}
+		System.out.println("\n");
 		return;
 		
 	}
@@ -156,14 +179,35 @@ public class ProcessamentoTemperatura {
 	public static void maximaTemperatura(int mesMaxima, int anoMaxima) {
 		
 		double temperaturaMaxima = 0;
+		//Boolean de armazenamento com o tamanho de dias do mes selecionado
+		boolean[] armazenadoMaxima = new boolean[data[mesMaxima-1][anoMaxima-2011].length];
 
 		//Lopp que vai iterar as temperaturas de todos os dias do mes selecionado
 		for(int l = 0; l<(data[mesMaxima-1][anoMaxima-2011].length);l++) {
 			if (l == 0 || temperaturaMaxima < data[mesMaxima-1][anoMaxima-2011][l]) {
 				temperaturaMaxima = data[mesMaxima-1][anoMaxima-2011][l];
+				Arrays.fill(armazenadoMaxima, Boolean.FALSE);
+				armazenadoMaxima[l] = true;
 				}
 		}
-		System.out.println("A maior temperatura média registrada em "+ mesMaxima + "/" + anoMaxima + " foi de: " + temperaturaMaxima + "\n");
+		// For para identificar duplicatas da temperatura mínima
+		for(int l = 0; l<(data[mesMaxima-1][anoMaxima-2011].length);l++) {
+			//se a temperatura for igual a máxima e se tratar de outro dia diferente do armazenado, armazenar esse também
+			if (temperaturaMaxima == data[mesMaxima-1][anoMaxima-2011][l] && !armazenadoMaxima[l]) {
+				armazenadoMaxima[l] = true;
+			}
+		}
+		
+		
+		System.out.print("A maior temperatura média registrada em "+ mesMaxima + "/" + anoMaxima + " foi de: " + temperaturaMaxima);
+		System.out.print(" no(s) dia(s): ");
+		for(int l = 0; l<(data[mesMaxima-1][anoMaxima-2011].length);l++) {
+			//se a temperatura for igual a mínima e se tratar de outro dia diferente do armazenado, armazenar esse também
+			if(armazenadoMaxima[l] == true) {
+				System.out.print((l+1) + " ");
+			}	
+		}
+		System.out.println("\n");
 		return;
 	}
 	//Método para emitir um relatório com todas as temperaturas, media, mínima e máxima de determinado mes
